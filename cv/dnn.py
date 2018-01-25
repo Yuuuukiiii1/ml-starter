@@ -62,9 +62,13 @@ class ObjectiveCV(ABC):
         skf = StratifiedKFold(n_splits=self._n_splits, shuffle=True, random_state=self._seed)
 
         for n_th, (train_idx, val_idx) in enumerate(skf.split(np.zeros_like(y), y)):
-            y_cat = keras.utils.to_categorical(y, self._n_class)
-            X_tr, y_tr = X[train_idx], y_cat[train_idx]
-            X_val, y_val = X[val_idx], y_cat[val_idx]
+            if self._n_class:
+                y_cat = keras.utils.to_categorical(y, self._n_class)
+                X_tr, y_tr = X[train_idx], y_cat[train_idx]
+                X_val, y_val = X[val_idx], y_cat[val_idx]
+            else:
+                X_tr, y_tr = X[train_idx], y[train_idx]
+                X_val, y_val = X[val_idx], y[val_idx]
 
             X_tr_aux = X_aux[train_idx]
             X_val_aux = X_aux[val_idx]
