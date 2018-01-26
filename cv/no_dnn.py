@@ -55,7 +55,7 @@ class ObjectiveCV(ABC):
         if self._n_class:
             blended = np.zeros((len(y), self._n_class)).astype(float)
         else:
-            blended = np.zeros((len(y), 1)).astype(float)
+            blended = np.zeros((len(y),)).astype(float)
 
         skf = StratifiedKFold(n_splits=self._n_splits, shuffle=True, random_state=self._seed)
 
@@ -86,15 +86,9 @@ class ObjectiveCV(ABC):
             scores_tr.append(log_loss(y_tr, probs_tr, eps=self._eps))
             scores_val.append(log_loss(y_val, probs_val, eps=self._eps))
 
-            if self._n_class:
-                blended[val_idx] = probs_val
-            else:
-                blended[val_idx] = probs_val[:, 1:]
+            blended[val_idx] = probs_val
 
-        if self._n_class:
-            test_preds = np.array(test_preds)
-        else:
-            test_preds = np.array(test_preds)[:, :, 1:]
+        test_preds = np.array(test_preds)
 
         return np.mean(scores_tr), np.mean(scores_val), blended, test_preds
 

@@ -1,8 +1,6 @@
-from __future__ import absolute_import
-from __future__ import print_function
-
 import argparse
 import pickle
+import pprint
 
 import pandas as pd
 
@@ -13,12 +11,15 @@ def main(trials_file):
     df['score_tr'] = [r['score_tr'] for r in trials.results]
     df['score_val'] = [r['score_val'] for r in trials.results]
     df['book_time'] = [t['book_time'].strftime('%Y-%m-%d %H:%M:%S') for t in trials.trials]
-    best_idx = df['score_val'].idxmin()
     pd.set_option('expand_frame_repr', False)
+    print("All trials")
     print(df)
+    print("Best 10 trials")
     print(df.sort_values(by=['score_val']).head(10))
-    print(df.loc[best_idx])
-    print(trials.best_trial)
+
+    vals = trials.best_trial['misc']['vals']
+    vals = {k: v[0] for k, v in vals.items()}
+    pprint.pprint(vals)
 
 
 if __name__ == '__main__':

@@ -13,7 +13,7 @@ from keras.preprocessing.image import ImageDataGenerator
 
 from cv import parse_args
 from cv.dnn import ObjectiveCV, CmdFactory
-from stg1_data import load_train_data, load_test_data
+from stg1_00_data import load_train_data, load_test_data
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 np.random.seed(777)

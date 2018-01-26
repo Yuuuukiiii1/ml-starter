@@ -7,8 +7,8 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
 from cv import parse_args
-from cv.no_img import ObjectiveCV, CmdFactory
-from stg1_data import load_train_data, load_test_data
+from cv.no_dnn import ObjectiveCV, CmdFactory
+from stg1_00_data import load_train_data, load_test_data
 
 np.random.seed(777)
 
@@ -24,7 +24,6 @@ class _CV(ObjectiveCV):
         clf.fit(X_tr, y_tr)
 
         # return lambda d: clf.predict_proba(d)[:, 1]
-        # return lambda d: clf.predict_log_proba(d)[:, 1]
         return lambda d: clf.predict_proba(d)
 
     def pre_fit(self, space):
@@ -39,7 +38,7 @@ class _CV(ObjectiveCV):
 
 
 def main():
-    base_name = 'stg0/02_lr'
+    base_name = 'stg1/02_lr'
     seed = 102_000
 
     args = parse_args()

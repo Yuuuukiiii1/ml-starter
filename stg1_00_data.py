@@ -31,7 +31,7 @@ def load_train_data():
                                                   stratify=y,
                                                   shuffle=True,
                                                   random_state=seed,
-                                                  train_size=5000,
+                                                  train_size=4000,
                                                   test_size=10000,
                                                   # test_size=0.2,
                                                   )
@@ -60,7 +60,7 @@ def load_test_data():
                                                   stratify=y,
                                                   shuffle=True,
                                                   random_state=seed,
-                                                  train_size=5000,
+                                                  train_size=4000,
                                                   test_size=10000,
                                                   )
     return X_test, y_test
@@ -102,6 +102,40 @@ def load_train_data2():
                                                   test_size=10000,
                                                   )
     return X_tr, y_tr
+
+
+def load_test_data2():
+    """
+    Customize it for your own purpose.
+
+    :return: X : test inputs
+    :return: y : test labels
+    """
+    mnist = fetch_mldata('MNIST original')
+    X = mnist.data.astype('float64')
+    y = mnist.target
+
+    neg_mask = y == 0
+    pos_mask = y == 1
+
+    X = np.concatenate((
+        X[neg_mask],
+        X[pos_mask],
+    )).reshape(-1, 28, 28, 1) / 255
+
+    y = np.concatenate((
+        y[neg_mask],
+        y[pos_mask],
+    ))
+
+    X_tr, X_test, y_tr, y_test = train_test_split(X, y,
+                                                  stratify=y,
+                                                  shuffle=True,
+                                                  random_state=seed,
+                                                  train_size=4000,
+                                                  test_size=10000,
+                                                  )
+    return X_test, y_test
 
 
 # Debug
