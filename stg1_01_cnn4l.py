@@ -76,7 +76,7 @@ class _CV(ObjectiveCV):
         model.fit_generator(
             generator=datagen(),
             steps_per_epoch=int(X_tr.shape[0] / batch_size),
-            epochs=50,
+            epochs=100,
             verbose=2,
             validation_data=([X_val, X_val_aux], y_val),
             callbacks=[
