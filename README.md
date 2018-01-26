@@ -142,7 +142,7 @@ These files will be used at stage 2.
 
 ### Loading predictions for 2nd stage
 
-The inputs of 2nd stage is the predictions made by 1st stage. [stg2_00_data.py](stg2_00_data.py) is used to load the data. Let's take a look at it.
+The inputs of 2nd stage is the predictions made at 1st stage. [stg2_00_data.py](stg2_00_data.py) is used to load the data. Let's take a look at it.
 
 ```python
 def load_train_data():
