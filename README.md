@@ -1,20 +1,20 @@
 # ML starter
 
-This project is a starter kit for machine learning project. I built it during Kaggle competition. But, it can be used in any real world project.
+This project is a starter kit for machine learning project. I built it during Kaggle competition. But it can be used in any real world project.
 
 There are only 4 short core scripts. It's highly customizable for specific demands.
 
 ## What's included
 
-* Stacking, Blending
+* Stacking, Blending.
   * Stack numpy binary files. Each scripts of model can be completely separated.
-* Support any kind of models, DNN, XGBoost, RandomForest and etc...
-* Hyper parameter tuning using hyperopt
+* Support any kinds of models, DNN, XGBoost, RandomForest and etc.
+* Hyper parameter tuning using [hyperopt](https://github.com/hyperopt/hyperopt).
   * Trials can be persisted and resumed.
-  * Trial history viewer
-* Cross validation
-* Bagging
-* Binary classification and multiclass classification
+  * Trial history viewer.
+* Cross validation.
+* Bagging.
+* Binary classification and multiclass classification.
 
 ## How to use
 
@@ -22,11 +22,11 @@ There are only 4 short core scripts. It's highly customizable for specific deman
 
 This repository contains some examples for minist.
 
-* stg1_00_data.py
-* stg1_01_cnn4l.py
-* stg1_02_lr.py
-* stg2_00_data.py
-* stg2_01_lgb.py
+* [stg1_00_data.py](stg1_00_data.py)
+* [stg1_01_cnn4l.py](stg1_01_cnn4l.py)
+* [stg1_02_lr.py](stg1_02_lr.py)
+* [stg2_00_data.py](stg2_00_data.py)
+* [stg2_01_lgb.py](stg2_01_lgb.py)
 
 These files represent following stacking architecture.
 
@@ -38,7 +38,7 @@ If you want, any kinds of stacking and averaging are possible.
 
 ### Hyper Parameter tuning
 
-Once you have written these scripts, you can run hyper parameter tuning.
+Once these scripts are made, it's ready to run hyper parameter tuning.
 
 ```
 python stg1_01_cnn4l.py --max_iter=20 --trial_steps=1
@@ -77,18 +77,20 @@ elif args.type == 'pred':
     }
 ```
 
+It possible to resume more trials later. Just run same command again.
+
 ### Make blended predictions
 
-We have successfully got best parameters. Next step is prediction using these parameters.
+Next step is prediction using the best parameters.
 
 Create blended predictions for subsequent stage. At the same time, predict test data, which will be also used in next steps.
 ```
 python stg1_01_cnn4l.py --type=pred --n_bags=2
 ```
 
-This command trains models by using same parameters and 5 fold CV, but using 2 different patterns of train/test split. After finish training, it generates predictions for each bags. Prediction will be saved as ```artifacts/stg1/01_cnn4l_train.npy``` and ```artifacts/stg1/01_cnn4l_test.npy```.
-
-They have following shapes.
+As ```n_bags=2``` is specified, it repeats 5 fold CV 2 times. Each bags use same best parameters, but use different pattern of train / test split.
+ 
+After finish training, it generates predictions for each bags. Prediction will be saved as ```artifacts/stg1/01_cnn4l_train.npy``` and ```artifacts/stg1/01_cnn4l_test.npy```. They have following shapes.
 
 ```
 >>> np.load("artifacts/stg1/01_cnn4l_train.npy").shape
@@ -97,27 +99,29 @@ They have following shapes.
 (2, 5, 10000, 10)
 ```
 
+Train
 * 2 is the number of bags.
 * 4000 is the number of train samples.
 * 10 is the number of classes (0 ~ 9 digits).
 
+Test
 * 2 is the number of bags.
 * 5 is from 5 fold CV.
 * 10000 is the number of test samples.
 * 10 is the number of classes (0 ~ 9 digits).
 
-CNN at stage 1 is done now.
+CNN at 1st stage is done now.
 
 ### More classifiers at 1st stage
 
 There is one more classifier, Logistic Regression, at 1st stage. So, repeat same steps like CNN.
 
-Hyper parameter tuning with 20 trials.
+Run 20 hyper parameter tuning. Trial history will be persisted for every 10 trials.
 ```
 python stg1_02_lr.py --max_iter=2 --trial_steps=10
 ```
 
-After updating script to use the best parameters, predict.
+Update script to use the best parameter, then predict.
 ```
 python stg1_02_lr.py --type=pred --n_bags=2
 ```
