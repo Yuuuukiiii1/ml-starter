@@ -116,7 +116,7 @@ CNN at 1st stage is done now.
 
 There is one more classifier, Logistic Regression, at 1st stage. So, repeat same steps like CNN.
 
-Run 20 hyper parameter tuning. Trial history will be persisted for every 10 trials.
+Run 20 hyper parameter tuning. Trial history will be persisted after every 10 trials.
 ```
 python stg1_02_lr.py --max_iter=2 --trial_steps=10
 ```
