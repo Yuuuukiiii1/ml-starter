@@ -184,7 +184,7 @@ def load_test_data():
 
 ## Hyper parameter tuning and predictions at 2nd stage
 
-It's ready to train models at stage 2. These steps are almost same with 1st stage.
+It's ready to train models at 2nd stage. These steps are almost same with 1st stage.
 
 Hyper parameter tuning of LightGBM.
 ```
