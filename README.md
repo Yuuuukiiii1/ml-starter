@@ -44,7 +44,7 @@ Once these scripts are made, it's ready to run hyper parameter tuning.
 python stg1_01_cnn4l.py --max_iter=20 --trial_steps=1
 ```
 
-This command runs 20 trials. The result of trials will be saved as ```artifacts/stg1/01_cnn4l_trials.pickle```. As ```trial_steps=1``` is specified, this file will be saved after for each trials.
+This command runs 20 trials. The result of trials will be saved as ```artifacts/stg1/01_cnn4l_trials.pickle```. As ```trial_steps=1``` is specified, this file will be saved after every single trials.
 
 Let's take a look at the result.
 ```
